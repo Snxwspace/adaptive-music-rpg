@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,12 +10,16 @@ public class PlayerControllerMain : MonoBehaviour
     public float speed = 10.0f;
     private Vector3 jumpForce = new Vector3(0, 15, 0);
     public float gravityScale = 2.0f;
+    public Vector3 battleLocation = new Vector3(-3, 1, 0);
 
     // internal use variables
     private Rigidbody selfRigidbody;
     public float groundCheckSensitivity = 0.5f;
     public float groundCheckWidth = 0.45f;
     private UsefulFunctions functions;
+    private Vector3 overworldPosition;
+    private quaternion overworldRotation;
+    private string lastSceneType;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,20 +42,39 @@ public class PlayerControllerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
-        direction = functions.NormalizeMoveVector(direction);
-
-        transform.Translate(direction * Time.deltaTime * speed);
-
-
-        if(Input.GetKeyDown(KeyCode.Space)) { 
-            if(functions.IsGrounded(groundCheckSensitivity, groundCheckWidth)) {    // fixing midair jumping
-                Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity at the center of mass
-                selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force equal to and exceeding the current velocity
+        if(SceneManager.GetActiveScene().name.StartsWith("O")) {
+            if (lastSceneType == "Battle") {
+                Debug.Log("Exiting battle...");
+                // Debug.Log($"Stored position is {overworldLocationData.position}.");
+                transform.SetPositionAndRotation(overworldPosition, overworldRotation);
             }
+
+            horizontalInput = Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
+            
+            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
+            direction = functions.NormalizeMoveVector(direction);
+
+            transform.Translate(speed * Time.deltaTime * direction);
+
+
+            if(Input.GetKeyDown(KeyCode.Space)) { 
+                if(functions.IsGrounded(groundCheckSensitivity, groundCheckWidth)) {    // fixing midair jumping
+                    Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity at the center of mass
+                    selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force equal to and exceeding the current velocity
+                }
+            }
+
+            lastSceneType = "Overworld";
+        } else if(SceneManager.GetActiveScene().name.StartsWith("B")) {
+            if(lastSceneType == "Overworld") {
+                // saving position and rotation of the overworld to be loaded later
+                overworldPosition = gameObject.transform.position;
+                overworldRotation = gameObject.transform.rotation;
+                // Debug.Log($"Saving position {overworldLocationData.position}...");
+                gameObject.transform.position = battleLocation;
+            }
+            lastSceneType = "Battle";
         }
     }
 

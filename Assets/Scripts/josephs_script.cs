@@ -17,3 +17,5 @@ public class josephs_script : MonoBehaviour
         }
     }
 }
+
+// debug/testing script lol

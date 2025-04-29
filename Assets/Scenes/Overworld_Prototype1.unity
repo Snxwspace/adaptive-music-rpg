@@ -265,6 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   gravityScale: 2.2
+  battleLocation: {x: -3, y: 1, z: 0}
   groundCheckSensitivity: 0.5
   groundCheckWidth: 0.5
 --- !u!136 &154990158
@@ -1181,7 +1182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1420529826}
-  - component: {fileID: 1420529825}
+  - component: {fileID: 1420529827}
   m_Layer: 0
   m_Name: CameraController
   m_TagString: Untagged
@@ -1189,19 +1190,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1420529825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420529824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb7e72208e9e5d4da938f45b35c8bf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  following: {fileID: 154990156}
 --- !u!4 &1420529826
 Transform:
   m_ObjectHideFlags: 0
@@ -1220,6 +1208,21 @@ Transform:
   - {fileID: 1529806545}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!114 &1420529827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420529824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e4b7a87f510942f6b631c8e3859b6f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  following: {fileID: 154990156}
+  battlePosition: {x: 0, y: 3, z: -9}
+  overworldToBattleRotation: -10
 --- !u!1 &1426313363
 GameObject:
   m_ObjectHideFlags: 0
