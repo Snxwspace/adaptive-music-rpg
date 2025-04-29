@@ -3,18 +3,27 @@ using UnityEngine;
 
 public class PlayerControllerMain : MonoBehaviour
 {
+    // movement variables
     private float horizontalInput;
     private float verticalInput;
     public float speed = 10.0f;
     private Vector3 jumpForce = new Vector3(0, 15, 0);
-    private Rigidbody selfRigidbody;
     public float gravityScale = 2.0f;
+
+    // internal use variables
+    private Rigidbody selfRigidbody;
+    public float groundCheckSensitivity = 0.5f;
+    public float groundCheckWidth = 0.45f;
+    private UsefulFunctions functions;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // grabbing rigidbody from self
         selfRigidbody = GetComponent<Rigidbody>();
+        
+        functions = gameObject.AddComponent<UsefulFunctions>();
+        
     }
 
     // Update is called once per frame
@@ -24,37 +33,29 @@ public class PlayerControllerMain : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
-        direction = normalizeVector(direction);
+        direction = functions.NormalizeMoveVector(direction);
 
         transform.Translate(direction * Time.deltaTime * speed);
 
 
-        if(Input.GetKeyDown(KeyCode.Space)) { // fix midair jumping
-            Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity at the center of mass
-            selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force equal to and exceeding the current velocity
+        if(Input.GetKeyDown(KeyCode.Space)) { 
+            if(functions.IsGrounded(groundCheckSensitivity, groundCheckWidth)) {    // fixing midair jumping
+                Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity at the center of mass
+                selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force equal to and exceeding the current velocity
+            }
         }
     }
 
     // FixedUpdate is like update but for physics calculations
     void FixedUpdate()
     {
-        selfRigidbody.AddForce(Physics.gravity * (gravityScale-1) * selfRigidbody.mass);
+        selfRigidbody.AddForce((gravityScale-1) * selfRigidbody.mass * Physics.gravity);
     }
 
-    Vector3 normalizeVector(Vector3 direction) {
-        float xFactor = 1.0f;
-        float zFactor = 1.0f;
-        if(direction.x != 0) {
-            xFactor = math.abs(direction.x);
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy")) {
+            Debug.Log("Enemy encountered!");
         }
-        if(direction.z != 0) {
-            zFactor = math.abs(direction.z);
-        }
-        direction.x /= xFactor;
-        direction.z /= zFactor;
-        direction.Normalize();
-        direction.x *= xFactor;
-        direction.z *= zFactor;
-        return direction;
     }
 }

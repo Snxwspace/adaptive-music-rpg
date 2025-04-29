@@ -265,6 +265,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   gravityScale: 2.2
+  groundCheckSensitivity: 0.5
+  groundCheckWidth: 0.5
 --- !u!136 &154990158
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -515,6 +517,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1426313364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &223126507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4903266605873124841, guid: 0fd942468dc77468291e511e2991ef96, type: 3}
+  m_PrefabInstance: {fileID: 9177052559339250388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1318,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463a1bc5ab82e106888426c6a3d41d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 4903266605873124841, guid: 0fd942468dc77468291e511e2991ef96, type: 3}
+  spawnChances:
+  - 100
+  spawnedIn:
+  - {fileID: 223126507}
+  - {fileID: 0}
+  - {fileID: 0}
+  spawnRangeX: 0
+  spawnRangeZ: 0
+  spawnIntervalMin: 5
+  spawnIntervalMax: 5
 --- !u!1 &1906016613
 GameObject:
   m_ObjectHideFlags: 0
