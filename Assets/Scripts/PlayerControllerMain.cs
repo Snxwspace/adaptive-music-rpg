@@ -1,5 +1,5 @@
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerMain : MonoBehaviour
 {
@@ -23,7 +23,15 @@ public class PlayerControllerMain : MonoBehaviour
         selfRigidbody = GetComponent<Rigidbody>();
         
         functions = gameObject.AddComponent<UsefulFunctions>();
-        
+    }
+
+    void Awake()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
+        if(objs.Length > 1) {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -56,6 +64,10 @@ public class PlayerControllerMain : MonoBehaviour
     {
         if(other.CompareTag("Enemy")) {
             Debug.Log("Enemy encountered!");
+            if(SceneManager.GetActiveScene().name.StartsWith("O")) {
+                // do the scene switch handler and transition
+                SceneManager.LoadSceneAsync("Battle_Prototype1");
+            }
         }
     }
 }
