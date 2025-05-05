@@ -41,51 +41,58 @@ public class PlayerControllerMain : MonoBehaviour
         // grabbing rigidbody from self
         selfRigidbody = GetComponent<Rigidbody>();
         
+        // this is needed to gain access to the useful functions
         functions = gameObject.AddComponent<UsefulFunctions>();
     }
 
+    // Awake is called once when the object becomes loaded
     void Awake()
     {
+        // if it's not the only player object, destroy itself
         GameObject[] objs = GameObject.FindGameObjectsWithTag("Player");
         if(objs.Length > 1) {
             Destroy(gameObject);
         }
+
+        // if it's not the only player object, make it so it won't be lost between scenes
         DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(SceneManager.GetActiveScene().name.StartsWith("O")) {
+        if(SceneManager.GetActiveScene().name.StartsWith("O")) {    // checks if the active scene is an overworld scene
             if (lastSceneType == "Battle") {
+                // if the player is coming out of a battle, reset the location and rotation to the values when starting the battle
                 Debug.Log("Exiting battle...");
-                // Debug.Log($"Stored position is {overworldLocationData.position}.");
                 transform.SetPositionAndRotation(overworldPosition, overworldRotation);
             }
 
             horizontalInput = Input.GetAxis("Horizontal");
             verticalInput = Input.GetAxis("Vertical");
             
-            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
+            // sets a vector to move at, then normalizes it to avoid diagonal movement being ~30% faster than it should be
+            Vector3 direction = new(horizontalInput, 0, verticalInput);
             direction = functions.NormalizeMoveVector(direction);
 
             transform.Translate(walkSpeed * Time.deltaTime * direction);
 
 
             if(Input.GetKeyDown(KeyCode.Space)) { 
-                if(functions.IsGrounded(groundCheckSensitivity, groundCheckWidth)) {    // fixing midair jumping
-                    Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity at the center of mass
-                    selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force equal to and exceeding the current velocity
+                if(functions.IsGrounded(groundCheckSensitivity, groundCheckWidth)) {    // fixes midair jumping
+                    Vector3 velocity = selfRigidbody.GetRelativePointVelocity(selfRigidbody.centerOfMass); // gets rigidbody velocity and stores it
+                    selfRigidbody.AddForce(jumpForce - velocity, ForceMode.VelocityChange); // adds a force to neutralize the current velocity, and sets a base jumping velocity
                 }
             }
 
             lastSceneType = "Overworld";
-        } else if(SceneManager.GetActiveScene().name.StartsWith("B")) {
+        } else if(SceneManager.GetActiveScene().name.StartsWith("B")) {     // checks if active scene is a battle scene
             if(lastSceneType == "Overworld") {
+                // checks if the player is entering a battle coming from the overworld
                 // saving position and rotation of the overworld to be loaded later
                 overworldPosition = gameObject.transform.position;
                 overworldRotation = gameObject.transform.rotation;
-                // Debug.Log($"Saving position {overworldLocationData.position}...");
+                // sets the player's position to the designated position where they should be battling at
                 gameObject.transform.position = battleLocation;
             }
             lastSceneType = "Battle";
@@ -95,16 +102,21 @@ public class PlayerControllerMain : MonoBehaviour
     // FixedUpdate is like update but for physics calculations
     void FixedUpdate()
     {
+        // amplifies gravity slightly to avoid really floaty really strong jumps
         selfRigidbody.AddForce((gravityScale-1) * selfRigidbody.mass * Physics.gravity);
     }
 
+    // OnTriggerEnter gets called once when the object enters the collider of another object
     void OnTriggerEnter(Collider other)
     {
+        // checks if the player is colliding with specifically an enemy
         if(other.CompareTag("Enemy")) {
             Debug.Log("Enemy encountered!");
+            // checks if the current scene is the overworld
             if(SceneManager.GetActiveScene().name.StartsWith("O")) {
                 // do the scene switch handler and transition
                 SceneManager.LoadSceneAsync("Battle_Prototype1");
+                // keeps the enemy it collided with intact through the transition so it can spawn the battle enemies
                 DontDestroyOnLoad(other.gameObject);
             }
         }

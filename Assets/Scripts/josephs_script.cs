@@ -12,6 +12,7 @@ public class josephs_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // joseph saves infinite battles in testing with the power of the backslash
         if (Input.GetKeyDown(KeyCode.Backslash)) {
             SceneManager.LoadSceneAsync("Overworld_Prototype1");
         }

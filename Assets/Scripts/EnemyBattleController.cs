@@ -16,6 +16,7 @@ public class EnemyBattleController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // set the current bar stats to their maximums to start off the combat
         currentHP = maxHP;
         currentMP = maxMP;
     }
