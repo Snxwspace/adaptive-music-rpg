@@ -263,9 +263,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb1c51010b4968f4287a56df230c84b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  walkSpeed: 10
   gravityScale: 2.2
   battleLocation: {x: -3, y: 1, z: 0}
+  level: 1
+  nextXP: 100
+  currentXP: 0
+  maxHP: 70
+  currentHP: 70
+  maxMP: 40
+  currentMP: 40
+  attack: 6
+  defense: 8
+  magic: 16
+  speed: 10
   groundCheckSensitivity: 0.5
   groundCheckWidth: 0.5
 --- !u!136 &154990158
@@ -1223,6 +1234,8 @@ MonoBehaviour:
   following: {fileID: 154990156}
   battlePosition: {x: 0, y: 3, z: -9}
   overworldToBattleRotation: -10
+  frameTop: {fileID: 1529806544}
+  frameBottom: {fileID: 1166241315}
 --- !u!1 &1426313363
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1500,7 @@ GameObject:
   - component: {fileID: 1871913485}
   - component: {fileID: 1871913488}
   m_Layer: 0
-  m_Name: Spawner-Enemy_01
+  m_Name: Spawner-EnemySet_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1951,7 +1964,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4903266605873124841, guid: 0fd942468dc77468291e511e2991ef96, type: 3}
       propertyPath: m_Name
-      value: Enemy_01
+      value: EnemySet_01
       objectReference: {fileID: 0}
     - target: {fileID: 9106436794634783454, guid: 0fd942468dc77468291e511e2991ef96, type: 3}
       propertyPath: m_LocalPosition.x

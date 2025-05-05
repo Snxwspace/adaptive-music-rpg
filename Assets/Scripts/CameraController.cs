@@ -10,6 +10,9 @@ public class CameraController : MonoBehaviour
     public float overworldToBattleRotation = -10.0f;
     private string lastSceneType;
 
+    public GameObject frameTop;
+    public GameObject frameBottom;
+
     // Awake is called when the gameObject "wakes up" or becomes loaded
     void Awake()
     {

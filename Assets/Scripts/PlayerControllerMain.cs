@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,10 +8,23 @@ public class PlayerControllerMain : MonoBehaviour
     // movement variables
     private float horizontalInput;
     private float verticalInput;
-    public float speed = 10.0f;
+    public float walkSpeed = 10.0f;
     private Vector3 jumpForce = new Vector3(0, 15, 0);
     public float gravityScale = 2.0f;
     public Vector3 battleLocation = new Vector3(-3, 1, 0);
+
+    // combat variables
+    public int level = 1;
+    public float nextXP = 100;
+    public float currentXP = 0.0f;
+    public float maxHP = 70;
+    public float currentHP = 70;
+    public float maxMP = 40;
+    public float currentMP = 40;
+    public float attack = 6;
+    public float defense = 8;
+    public float magic = 16;
+    public float speed = 12;
 
     // internal use variables
     private Rigidbody selfRigidbody;
@@ -55,7 +69,7 @@ public class PlayerControllerMain : MonoBehaviour
             Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
             direction = functions.NormalizeMoveVector(direction);
 
-            transform.Translate(speed * Time.deltaTime * direction);
+            transform.Translate(walkSpeed * Time.deltaTime * direction);
 
 
             if(Input.GetKeyDown(KeyCode.Space)) { 
@@ -91,6 +105,7 @@ public class PlayerControllerMain : MonoBehaviour
             if(SceneManager.GetActiveScene().name.StartsWith("O")) {
                 // do the scene switch handler and transition
                 SceneManager.LoadSceneAsync("Battle_Prototype1");
+                DontDestroyOnLoad(other.gameObject);
             }
         }
     }
