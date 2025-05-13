@@ -6,6 +6,7 @@ TagManager:
   tags:
   - OtherPartyMember
   - Enemy
+  - NPC
   layers:
   - Default
   - TransparentFX
