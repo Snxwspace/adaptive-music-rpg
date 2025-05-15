@@ -13,18 +13,6 @@ public class PlayerControllerMain : MonoBehaviour
     public float gravityScale = 2.0f;
     public Vector3 battleLocation = new Vector3(-3, 1, 0);
 
-    // combat variables
-    public int level = 1;
-    public float nextXP = 100;
-    public float currentXP = 0.0f;
-    public float maxHP = 70;
-    public float currentHP = 70;
-    public float maxMP = 40;
-    public float currentMP = 40;
-    public float attack = 6;
-    public float defense = 8;
-    public float magic = 16;
-    public float speed = 12;
 
     // internal use variables
     private Rigidbody selfRigidbody;
@@ -35,12 +23,16 @@ public class PlayerControllerMain : MonoBehaviour
     private quaternion overworldRotation;
     private string lastSceneType;
     private BattleHandler battleHandler;
+    private StatHandler statHandler;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // grabbing rigidbody from self
         selfRigidbody = GetComponent<Rigidbody>();
+
+        // grabbing stat handler from self
+        statHandler = GetComponent<StatHandler>();
         
         // this is needed to gain access to the useful functions
         functions = gameObject.AddComponent<UsefulFunctions>();

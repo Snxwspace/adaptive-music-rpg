@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 133069036}
   - component: {fileID: 133069035}
   - component: {fileID: 133069034}
+  - component: {fileID: 133069038}
   m_Layer: 0
   m_Name: Player_Hex
   m_TagString: OtherPartyMember
@@ -229,6 +230,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133069038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133069033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e587c7fb4804bf6109975873efcdf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  nextXP: 0
+  currentXP: 0
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  attack: 0
+  defense: 0
+  magic: 0
+  speed: 0
 --- !u!1 &154990156
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,9 +265,10 @@ GameObject:
   - component: {fileID: 154990160}
   - component: {fileID: 154990159}
   - component: {fileID: 154990158}
-  - component: {fileID: 154990157}
   - component: {fileID: 154990162}
   - component: {fileID: 154990163}
+  - component: {fileID: 154990157}
+  - component: {fileID: 154990164}
   m_Layer: 0
   m_Name: Player_Main
   m_TagString: Player
@@ -266,17 +291,6 @@ MonoBehaviour:
   walkSpeed: 10
   gravityScale: 2.2
   battleLocation: {x: -3, y: 1, z: 0}
-  level: 1
-  nextXP: 100
-  currentXP: 0
-  maxHP: 70
-  currentHP: 70
-  maxMP: 40
-  currentMP: 40
-  attack: 6
-  defense: 8
-  magic: 16
-  speed: 10
   groundCheckSensitivity: 0.5
   groundCheckWidth: 0.5
 --- !u!136 &154990158
@@ -420,6 +434,29 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &154990164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154990156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e587c7fb4804bf6109975873efcdf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
+  nextXP: 100
+  currentXP: 0
+  maxHP: 70
+  currentHP: 70
+  maxMP: 40
+  currentMP: 40
+  attack: 6
+  defense: 8
+  magic: 16
+  speed: 12
 --- !u!1 &213900849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1203,6 +1240,7 @@ GameObject:
   - component: {fileID: 1229108271}
   - component: {fileID: 1229108270}
   - component: {fileID: 1229108269}
+  - component: {fileID: 1229108273}
   m_Layer: 0
   m_Name: Player_Opal
   m_TagString: OtherPartyMember
@@ -1301,6 +1339,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1229108273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229108268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e587c7fb4804bf6109975873efcdf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  nextXP: 0
+  currentXP: 0
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  attack: 0
+  defense: 0
+  magic: 0
+  speed: 0
 --- !u!1 &1381989387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1779,7 @@ GameObject:
   - component: {fileID: 1906016615}
   - component: {fileID: 1906016614}
   - component: {fileID: 1906016618}
+  - component: {fileID: 1906016619}
   m_Layer: 0
   m_Name: Player_Aurora
   m_TagString: OtherPartyMember
@@ -1843,6 +1905,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1906016619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906016613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e587c7fb4804bf6109975873efcdf90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  nextXP: 0
+  currentXP: 0
+  maxHP: 0
+  currentHP: 0
+  maxMP: 0
+  currentMP: 0
+  attack: 0
+  defense: 0
+  magic: 0
+  speed: 0
 --- !u!1 &1967238710
 GameObject:
   m_ObjectHideFlags: 0

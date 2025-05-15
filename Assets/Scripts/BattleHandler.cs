@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,9 +6,9 @@ public class BattleHandler : MonoBehaviour
 {
     public List<GameObject> allyTeam;
     public List<GameObject> enemyTeam;
-    private List<GameObject> allBattlers;
-    private List<GameObject> turnQueue;
-    private List<GameObject> fastestEntities;
+    private List<(GameObject, StatHandler)> allBattlers;   // should i set this to hold an array[2] to perm store stat handler? 
+    private List<(GameObject, StatHandler)> turnQueue;
+    private List<(GameObject, StatHandler)> fastestEntities;
     private int highestSpeed = 0;
     private GameObject currentTurn;
     public bool isInitialized = false;
@@ -22,9 +21,9 @@ public class BattleHandler : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        allBattlers = new List<GameObject>(0);
-        turnQueue = new List<GameObject>(0);
-        fastestEntities = new List<GameObject>(0);
+        allBattlers = new List<(GameObject, StatHandler)>(0);
+        turnQueue = new List<(GameObject, StatHandler)>(0);
+        fastestEntities = new List<(GameObject, StatHandler)>(0);
     }
 
     // Update is called once per frame
@@ -49,12 +48,20 @@ public class BattleHandler : MonoBehaviour
 
     private void InitializeLists(bool needsRoundReset = true) {
         allBattlers.Clear();
-        allBattlers.AddRange(allyTeam);
-        allBattlers.AddRange(enemyTeam);
+        for(int i = 0; i < allyTeam.Count; i++) {
+            StatHandler j = allyTeam[i].GetComponent<StatHandler>();
+            allBattlers.Add((allyTeam[i], j));
+        }
+        for(int i = 0; i < enemyTeam.Count; i++) {
+            StatHandler j = enemyTeam[i].GetComponent<StatHandler>();
+            allBattlers.Add((enemyTeam[i], j));
+        }
 
         if(needsRoundReset) {
             ResetRound();
         }
+
+        // put the GetComponent<StatHandler>() in here?
     }
 
     private void ResetRound() {
@@ -81,16 +88,19 @@ public class BattleHandler : MonoBehaviour
         int randIndex = UnityEngine.Random.Range(0, fastestEntities.Count);
         // Debug.Log(randIndex);
         // Debug.Log(fastestEntities.Count);
-        GameObject nextTurn = fastestEntities[randIndex];
+        (GameObject, StatHandler) nextTurn = fastestEntities[randIndex];
         turnQueue.Remove(nextTurn);
         fastestEntities.Remove(nextTurn);
-        return nextTurn;
+        (GameObject next, _) = nextTurn;
+        return next;
     }
 
-    public int GetSpeed(GameObject entity) {
+    public int GetSpeed((GameObject, StatHandler) entity) {
         // let's be honest, only reason this is a seperate function is because 
         // it's going to be a hot function that'll get refactored over and over again
         // seriously i have no clue what im doing here send help
-        return 1;
+
+        (_, StatHandler stat) = entity;
+        return (int)stat.speed;
     }
 }
