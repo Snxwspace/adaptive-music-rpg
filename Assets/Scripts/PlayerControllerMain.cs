@@ -34,6 +34,7 @@ public class PlayerControllerMain : MonoBehaviour
     private Vector3 overworldPosition;
     private quaternion overworldRotation;
     private string lastSceneType;
+    private BattleHandler battleHandler;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +44,10 @@ public class PlayerControllerMain : MonoBehaviour
         
         // this is needed to gain access to the useful functions
         functions = gameObject.AddComponent<UsefulFunctions>();
+
+        // need to access the battle handler script
+        GameObject game = GameObject.FindGameObjectWithTag("GameObject");
+        battleHandler = game.GetComponent<BattleHandler>();
     }
 
     // Awake is called once when the object becomes loaded
@@ -94,6 +99,9 @@ public class PlayerControllerMain : MonoBehaviour
                 overworldRotation = gameObject.transform.rotation;
                 // sets the player's position to the designated position where they should be battling at
                 gameObject.transform.position = battleLocation;
+                // sets up the battle handler to add this to the good guy team
+                battleHandler.allyTeam.Add(gameObject);
+                battleHandler.isInitialized = false;
             }
             lastSceneType = "Battle";
         }

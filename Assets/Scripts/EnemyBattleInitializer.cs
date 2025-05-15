@@ -4,7 +4,14 @@ using UnityEngine.SceneManagement;
 public class EnemyBattleInitializer : MonoBehaviour
 {
     public GameObject[] enemySpawnPrefabs;
-    
+    private BattleHandler battleHandler;
+
+    void Start()
+    {
+        GameObject game = GameObject.FindGameObjectWithTag("GameObject");
+        battleHandler = game.GetComponent<BattleHandler>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -15,7 +22,10 @@ public class EnemyBattleInitializer : MonoBehaviour
             for(int i = 0; i < enemySpawnPrefabs.Length; i++) {
                 // spawn the objects at a y value so that it doesn't clip into the floor and an x value where it takes its own side of the battle arena
                 float spawnY = enemySpawnPrefabs[i].transform.position.y; 
-                Instantiate(enemySpawnPrefabs[i], new Vector3(3*(i+1), spawnY, 0), enemySpawnPrefabs[i].transform.rotation);
+                GameObject spawned = Instantiate(enemySpawnPrefabs[i], new Vector3(3*(i+1), spawnY, 0), enemySpawnPrefabs[i].transform.rotation);
+                // sets up the battle handler to set everything added to the enemy team
+                battleHandler.enemyTeam.Add(spawned);
+                battleHandler.isInitialized = false;
             }
             Destroy(gameObject);
         }
