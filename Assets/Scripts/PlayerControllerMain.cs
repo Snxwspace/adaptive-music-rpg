@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class PlayerControllerMain : MonoBehaviour
     private string lastSceneType;
     private BattleHandler battleHandler;
     private StatHandler statHandler;
+    private PlayerBattleController battleFunctions; 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,8 +33,9 @@ public class PlayerControllerMain : MonoBehaviour
         // grabbing rigidbody from self
         selfRigidbody = GetComponent<Rigidbody>();
 
-        // grabbing stat handler from self
+        // grabbing scripts from self
         statHandler = GetComponent<StatHandler>();
+        battleFunctions = GetComponent<PlayerBattleController>();
         
         // this is needed to gain access to the useful functions
         functions = gameObject.AddComponent<UsefulFunctions>();
@@ -95,6 +98,19 @@ public class PlayerControllerMain : MonoBehaviour
                 battleHandler.allyTeam.Add(gameObject);
                 battleHandler.isInitialized = false;
             }
+            if(battleFunctions.battleMenu.activeSelf) {
+                if(Input.GetKeyDown(KeyCode.Return)) {
+                    switch(Array.IndexOf(battleFunctions.battleMenuScript.selectionSprites, 
+                                         battleFunctions.battleMenuScript.imageLoader.sprite)) {
+                        case 0:
+                            battleFunctions.AttackBasic((int)statHandler.attack, -1);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
             lastSceneType = "Battle";
         }
     }

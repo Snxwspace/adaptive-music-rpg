@@ -60,8 +60,6 @@ public class BattleHandler : MonoBehaviour
         if(needsRoundReset) {
             ResetRound();
         }
-
-        // put the GetComponent<StatHandler>() in here?
     }
 
     private void ResetRound() {
