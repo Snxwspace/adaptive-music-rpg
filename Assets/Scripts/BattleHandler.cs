@@ -38,9 +38,15 @@ public class BattleHandler : MonoBehaviour
                 if(turnQueue.Count == 0) {
                     ResetRound();
                 }
-                currentTurn = GetNextTurn();
+                currentTurn = GetNextTurn(out StatHandler query);
                 Debug.Log("It is now " + currentTurn.name + "\'s turn.");
                 // figure out how to have the others take their turns
+                if(query.isPlayerControlled) {
+                    PlayerBattleController battleController = currentTurn.GetComponent<PlayerBattleController>();
+                    battleController.ToggleBattleMenu();
+                    battleController.currentAction = PlayerBattleController.Actions.Waiting;
+                } else {/* todo */}
+                
                 isTurnFinished = false;
             }
         }
@@ -67,7 +73,7 @@ public class BattleHandler : MonoBehaviour
         turnQueue.AddRange(allBattlers);
     }
 
-    private GameObject GetNextTurn() {
+    private GameObject GetNextTurn(out StatHandler stat) {
         if(fastestEntities.Count == 0) {
             highestSpeed = 0;
             for(int i = 0; i < turnQueue.Count; i++) {
@@ -83,13 +89,14 @@ public class BattleHandler : MonoBehaviour
             }
         }
 
-        int randIndex = UnityEngine.Random.Range(0, fastestEntities.Count);
+        int randIndex = Random.Range(0, fastestEntities.Count);
         // Debug.Log(randIndex);
         // Debug.Log(fastestEntities.Count);
         (GameObject, StatHandler) nextTurn = fastestEntities[randIndex];
         turnQueue.Remove(nextTurn);
         fastestEntities.Remove(nextTurn);
-        (GameObject next, _) = nextTurn;
+        GameObject next;
+        (next, stat) = nextTurn;
         return next;
     }
 

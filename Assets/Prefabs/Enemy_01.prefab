@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6335506586408779194}
   - component: {fileID: 3609730357374731171}
   - component: {fileID: 8298784797000853261}
+  - component: {fileID: 7941429524436335966}
   m_Layer: 0
   m_Name: Enemy_01
   m_TagString: Untagged
@@ -124,15 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545074cdf40e1f3648fd2d78331270ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
-  maxHP: 60
-  currentHP: 0
-  maxMP: 20
-  currentMP: 0
-  attack: 8
-  defense: 8
-  magic: 8
-  speed: 8
 --- !u!114 &8298784797000853261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,3 +148,19 @@ MonoBehaviour:
   defense: 8
   magic: 8
   speed: 8
+  isPlayerControlled: 0
+--- !u!114 &7941429524436335966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137954946339473735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3f295afef8f487b9bdcf7b5469abf8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textHP: {fileID: 0}
+  textMP: {fileID: 0}
+  prefab: {fileID: 4388789036112475131, guid: 5e7f3bf288a11730eb1b75dca940812c, type: 3}

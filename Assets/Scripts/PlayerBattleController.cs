@@ -5,10 +5,29 @@ public class PlayerBattleController : MonoBehaviour
 {
     public GameObject battleMenu;
     public BattleMenuController battleMenuScript;
+    public GameObject selectorArrow;
+    public SelectorController selectorScript;
+    public Actions currentAction;
+
+    // readonly enums yay
+    public enum Actions {
+        Idle = -1, // not current turn
+        Waiting = 0, // current turn, in menu
+        BasicAttack = 18, // selecting target for basic attack
+        SkillMenu = 20, // selecting skill/magic to use
+        SkillTarget = 28, // selecting target of skill/magic
+        ItemMenu = 30, // in inventory menu
+        ItemInformation = 31, // checking what an item does
+        ItemTarget = 38, // choosing target of item
+        GuardConfirm = 40, // confirming whether to guard
+        RunConfirm = 50, // confirming whether to run
+        SpecialMenu = 90, // in the special part of the menu, no clue what it does rn lol
+    }   // why did i explicitly put numbers its not actually useful what am i doing
 
     void Start()
     {
         battleMenuScript = battleMenu.GetComponent<BattleMenuController>();
+        selectorScript = selectorArrow.GetComponent<SelectorController>();
     }
 
     public void ToggleBattleMenu()

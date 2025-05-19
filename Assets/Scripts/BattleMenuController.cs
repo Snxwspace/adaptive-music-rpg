@@ -16,7 +16,7 @@ public class BattleMenuController : MonoBehaviour
     // OnEnable is called every time the object gets enabled
     void OnEnable()
     {
-        imageLoader.sprite = fallbackSprite;
+        imageLoader.sprite = fallbackSprite;    // idk why this errors i think its harmless just ignore it
     }
 
     // Update is called once per frame

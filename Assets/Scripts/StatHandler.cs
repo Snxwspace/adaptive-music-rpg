@@ -14,6 +14,7 @@ public class StatHandler : MonoBehaviour
     public float defense;
     public float magic;
     public float speed;
+    public bool isPlayerControlled;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

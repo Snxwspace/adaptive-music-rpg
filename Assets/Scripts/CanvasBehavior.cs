@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class CanvasBehavior : MonoBehaviour
 {
     public GameObject frame;
+    public GameObject HPMPcontainer;
 
     void Awake()
     {
@@ -25,5 +26,9 @@ public class CanvasBehavior : MonoBehaviour
                 frame.SetActive(true);
             }
         }
+    }
+
+    public GameObject InstantiateNewHPText(GameObject prefab) {    // i just need to throw something together this wouldnt stay for long
+        return Instantiate(prefab, new Vector3(808.75f, 456.75f), prefab.transform.rotation, HPMPcontainer.transform);
     }
 }

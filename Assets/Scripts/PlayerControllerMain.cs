@@ -1,6 +1,5 @@
 using System;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,7 +24,7 @@ public class PlayerControllerMain : MonoBehaviour
     private string lastSceneType;
     private BattleHandler battleHandler;
     private StatHandler statHandler;
-    private PlayerBattleController battleFunctions; 
+    private PlayerBattleController battleFunctions;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -98,19 +97,58 @@ public class PlayerControllerMain : MonoBehaviour
                 battleHandler.allyTeam.Add(gameObject);
                 battleHandler.isInitialized = false;
             }
-            if(battleFunctions.battleMenu.activeSelf) {
-                if(Input.GetKeyDown(KeyCode.Return)) {
-                    switch(Array.IndexOf(battleFunctions.battleMenuScript.selectionSprites, 
-                                         battleFunctions.battleMenuScript.imageLoader.sprite)) {
-                        case 0:
-                            battleFunctions.AttackBasic((int)statHandler.attack, -1);
-                            break;
-                        default:
-                            break;
+            switch (battleFunctions.currentAction) {
+                case PlayerBattleController.Actions.Waiting:
+                    if(!battleFunctions.battleMenu.activeSelf) {
+                        battleFunctions.battleMenu.SetActive(true);
                     }
-                }
-            }
 
+                    if(Input.GetKeyDown(KeyCode.Return)) {
+                        switch(Array.IndexOf(battleFunctions.battleMenuScript.selectionSprites, 
+                                            battleFunctions.battleMenuScript.imageLoader.sprite)) {
+                            case 0:
+                                battleFunctions.currentAction = PlayerBattleController.Actions.BasicAttack;
+                                battleFunctions.battleMenu.SetActive(false);
+                                break;
+                            case 1:
+                                battleFunctions.currentAction = PlayerBattleController.Actions.SkillMenu;
+                                break;
+                            case 2:
+                                // loud incorrect buzzer
+                                break;
+                            case 3:
+                                SceneManager.LoadSceneAsync("Overworld_Prototype1");
+                                break;
+                            case 4:
+                                // battleFunctions.currentAction = PlayerBattleController.Actions.GuardConfirm;
+                                break;
+                            case 5:
+                                // loud incorrect buzzer
+                                break;
+                        }
+                    }
+                    break;
+                case PlayerBattleController.Actions.BasicAttack:
+                    if(!battleFunctions.selectorArrow.activeSelf) {
+                        battleFunctions.selectorArrow.SetActive(true);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Return)) {
+                        int index = battleFunctions.selectorScript.selectedIndex;
+                        GameObject enemyObject = battleHandler.enemyTeam[index];
+                        StatHandler enemyStats = enemyObject.GetComponent<StatHandler>();
+                        int damage = battleFunctions.AttackBasic((int)statHandler.attack, (int)enemyStats.defense);
+                        enemyStats.currentHP -= damage;
+                        battleFunctions.currentAction = PlayerBattleController.Actions.Idle;
+                        battleFunctions.selectorArrow.SetActive(false);
+                        battleHandler.isTurnFinished = true;
+                        break;
+                    } else if (Input.GetKeyDown(KeyCode.Escape)) {
+                        battleFunctions.currentAction = PlayerBattleController.Actions.Waiting;
+                    }
+                    break;
+            }
+            
             lastSceneType = "Battle";
         }
     }
