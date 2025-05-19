@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,9 +7,9 @@ public class BattleHandler : MonoBehaviour
 {
     public List<GameObject> allyTeam;
     public List<GameObject> enemyTeam;
-    private List<(GameObject, StatHandler)> allBattlers;   // should i set this to hold an array[2] to perm store stat handler? 
-    private List<(GameObject, StatHandler)> turnQueue;
-    private List<(GameObject, StatHandler)> fastestEntities;
+    public List<(GameObject, StatHandler)> allBattlers;   // should i set this to hold an array[2] to perm store stat handler? 
+    public List<(GameObject, StatHandler)> turnQueue;
+    public List<(GameObject, StatHandler)> fastestEntities;
     private int highestSpeed = 0;
     private GameObject currentTurn;
     public bool isInitialized = false;
@@ -35,6 +36,10 @@ public class BattleHandler : MonoBehaviour
                 isInitialized = true;
             }
             if(isTurnFinished) {
+                if(enemyTeam.Count == 0 || allyTeam.Count == 0) {
+                    EndCombat();
+                }
+
                 if(turnQueue.Count == 0) {
                     ResetRound();
                 }
@@ -89,7 +94,7 @@ public class BattleHandler : MonoBehaviour
             }
         }
 
-        int randIndex = Random.Range(0, fastestEntities.Count);
+        int randIndex = UnityEngine.Random.Range(0, fastestEntities.Count);
         // Debug.Log(randIndex);
         // Debug.Log(fastestEntities.Count);
         (GameObject, StatHandler) nextTurn = fastestEntities[randIndex];
@@ -107,5 +112,15 @@ public class BattleHandler : MonoBehaviour
 
         (_, StatHandler stat) = entity;
         return (int)stat.speed;
+    }
+
+    public void EndCombat() {
+        isInitialized = false;
+        isAddingReinforcements = false;
+        isTurnFinished = true;
+        enemyTeam.Clear();
+        highestSpeed = 0;
+        currentTurn.SendMessage("GUIClear");
+        SceneManager.LoadSceneAsync("Overworld_Prototype1");
     }
 }

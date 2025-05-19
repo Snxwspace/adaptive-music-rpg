@@ -8,6 +8,7 @@ public class UpdatePlaceholderUI : MonoBehaviour
     public TextMeshProUGUI textMP;
     public GameObject prefab;
     private StatHandler characterStatHandler;
+    public GameObject textObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,8 +18,8 @@ public class UpdatePlaceholderUI : MonoBehaviour
         if(textHP == null) {
             GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
             CanvasBehavior canvasBehavior = canvas.GetComponent<CanvasBehavior>();
-            GameObject text = canvasBehavior.InstantiateNewHPText(prefab);
-            textHP = text.GetComponent<TextMeshProUGUI>();
+            textObject = canvasBehavior.InstantiateNewHPText(prefab);
+            textHP = textObject.GetComponent<TextMeshProUGUI>();
         }
     }
 

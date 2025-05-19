@@ -25,6 +25,10 @@ public class CanvasBehavior : MonoBehaviour
             if(!frame.activeSelf) {
                 frame.SetActive(true);
             }
+        } else {
+            if(frame.activeSelf) {
+                frame.SetActive(false);
+            }
         }
     }
 

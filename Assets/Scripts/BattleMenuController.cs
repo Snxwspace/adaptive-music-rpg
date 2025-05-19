@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BattleMenuController : MonoBehaviour
@@ -22,6 +23,10 @@ public class BattleMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!SceneManager.GetActiveScene().name.StartsWith("B")) {
+            gameObject.SetActive(false);
+        }
+        
         if (Input.GetKeyDown(KeyCode.A)) {
             int spriteIndex = Array.IndexOf(selectionSprites, imageLoader.sprite);
             if (spriteIndex == -1) {

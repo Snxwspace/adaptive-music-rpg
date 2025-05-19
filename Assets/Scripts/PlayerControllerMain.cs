@@ -145,6 +145,7 @@ public class PlayerControllerMain : MonoBehaviour
                         break;
                     } else if (Input.GetKeyDown(KeyCode.Escape)) {
                         battleFunctions.currentAction = PlayerBattleController.Actions.Waiting;
+                        battleFunctions.selectorArrow.SetActive(false);
                     }
                     break;
             }

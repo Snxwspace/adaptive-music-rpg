@@ -51,4 +51,9 @@ public class PlayerBattleController : MonoBehaviour
         damage -= (enemyDefense * defenseMult) + (enemyMagic * magicDefMult);
         return (int)damage;
     }
+
+    public void GUIClear() {
+        battleMenu.SetActive(false);
+        selectorArrow.SetActive(false);
+    }
 }
