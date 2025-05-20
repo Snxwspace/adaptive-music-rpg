@@ -50,7 +50,9 @@ public class BattleHandler : MonoBehaviour
                     PlayerBattleController battleController = currentTurn.GetComponent<PlayerBattleController>();
                     battleController.ToggleBattleMenu();
                     battleController.currentAction = PlayerBattleController.Actions.Waiting;
-                } else {/* todo */}
+                } else {
+                    currentTurn.SendMessage("TakeBattleTurn");
+                }
                 
                 isTurnFinished = false;
             }
@@ -119,6 +121,7 @@ public class BattleHandler : MonoBehaviour
         isAddingReinforcements = false;
         isTurnFinished = true;
         enemyTeam.Clear();
+        allyTeam.Clear();
         highestSpeed = 0;
         currentTurn.SendMessage("GUIClear");
         SceneManager.LoadSceneAsync("Overworld_Prototype1");
