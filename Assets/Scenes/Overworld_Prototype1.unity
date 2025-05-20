@@ -254,6 +254,8 @@ MonoBehaviour:
   magic: 0
   speed: 0
   isPlayerControlled: 0
+  physDamageMultiplier: 0
+  magicDamageMultiplier: 0
 --- !u!1 &154990156
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +463,8 @@ MonoBehaviour:
   magic: 16
   speed: 12
   isPlayerControlled: 1
+  physDamageMultiplier: 1
+  magicDamageMultiplier: 1
 --- !u!114 &154990165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +482,7 @@ MonoBehaviour:
   selectorArrow: {fileID: 788005502}
   selectorScript: {fileID: 0}
   currentAction: 0
+  guardDamageMult: 0.4
 --- !u!114 &154990166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,6 +498,7 @@ MonoBehaviour:
   textHP: {fileID: 1406689225}
   textMP: {fileID: 457553785}
   prefab: {fileID: 0}
+  textObject: {fileID: 0}
 --- !u!1 &213900849
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1802,8 @@ MonoBehaviour:
   magic: 0
   speed: 0
   isPlayerControlled: 0
+  physDamageMultiplier: 0
+  magicDamageMultiplier: 0
 --- !u!1 &1406689223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2555,6 +2563,8 @@ MonoBehaviour:
   magic: 0
   speed: 0
   isPlayerControlled: 0
+  physDamageMultiplier: 0
+  magicDamageMultiplier: 0
 --- !u!1 &1967238710
 GameObject:
   m_ObjectHideFlags: 0

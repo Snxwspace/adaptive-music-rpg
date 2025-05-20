@@ -117,10 +117,16 @@ public class PlayerControllerMain : MonoBehaviour
                                 // loud incorrect buzzer
                                 break;
                             case 3:
-                                SceneManager.LoadSceneAsync("Overworld_Prototype1");
+                                // battleFunctions.currentAction = PlayerBattleController.Actions.GuardConfirm;
+                                // need to push this out a little bit but i dont want to put in the effort to do that atm
+                                statHandler.magicDamageMultiplier *= battleFunctions.guardDamageMult;
+                                statHandler.physDamageMultiplier *= battleFunctions.guardDamageMult;
+                                battleFunctions.battleMenu.SetActive(false);
+                                battleFunctions.currentAction = PlayerBattleController.Actions.Guarding;
+                                battleHandler.isTurnFinished = true;
                                 break;
                             case 4:
-                                // battleFunctions.currentAction = PlayerBattleController.Actions.GuardConfirm;
+                                SceneManager.LoadSceneAsync("Overworld_Prototype1");
                                 break;
                             case 5:
                                 // loud incorrect buzzer
@@ -138,7 +144,8 @@ public class PlayerControllerMain : MonoBehaviour
                         GameObject enemyObject = battleHandler.enemyTeam[index];
                         StatHandler enemyStats = enemyObject.GetComponent<StatHandler>();
                         int damage = battleFunctions.AttackBasic((int)statHandler.attack, (int)enemyStats.defense);
-                        enemyStats.currentHP -= damage;
+                        float damageF = damage * enemyStats.physDamageMultiplier;
+                        enemyStats.currentHP -= (int)damageF;
                         battleFunctions.currentAction = PlayerBattleController.Actions.Idle;
                         battleFunctions.selectorArrow.SetActive(false);
                         battleHandler.isTurnFinished = true;

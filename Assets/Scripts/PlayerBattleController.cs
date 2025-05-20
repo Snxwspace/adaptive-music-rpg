@@ -9,8 +9,11 @@ public class PlayerBattleController : MonoBehaviour
     public SelectorController selectorScript;
     public Actions currentAction;
 
+    public float guardDamageMult = 0.4f;
+
     // readonly enums yay
     public enum Actions {
+        Guarding = -4, // not current turn, is currently guarding
         Idle = -1, // not current turn
         Waiting = 0, // current turn, in menu
         BasicAttack = 18, // selecting target for basic attack
@@ -43,7 +46,8 @@ public class PlayerBattleController : MonoBehaviour
         return (int)damage;
     }
 
-    public int AttackGeneric(int playerAttack, int enemyDefense, int enemyMagic, float attackMult, float defenseMult, float magicDefMult, int baseDamage)
+    public int AttackGeneric(int playerAttack, int enemyDefense, int enemyMagic, float attackMult, 
+                             float defenseMult, float magicDefMult, int baseDamage)
     {
         // playerAttack can be the player's magic stat if the attack is a magic attack
         float damage = baseDamage;

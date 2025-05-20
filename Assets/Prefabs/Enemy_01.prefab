@@ -140,15 +140,17 @@ MonoBehaviour:
   level: 1
   nextXP: 0
   currentXP: -1
-  maxHP: 60
-  currentHP: 60
-  maxMP: 20
-  currentMP: 20
+  maxHP: 30
+  currentHP: 30
+  maxMP: 15
+  currentMP: 15
   attack: 8
   defense: 8
   magic: 8
   speed: 8
   isPlayerControlled: 0
+  physDamageMultiplier: 1
+  magicDamageMultiplier: 1
 --- !u!114 &7941429524436335966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +166,4 @@ MonoBehaviour:
   textHP: {fileID: 0}
   textMP: {fileID: 0}
   prefab: {fileID: 4388789036112475131, guid: 5e7f3bf288a11730eb1b75dca940812c, type: 3}
+  textObject: {fileID: 0}

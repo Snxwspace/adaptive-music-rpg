@@ -67,16 +67,20 @@ public class EnemyBattleController : MonoBehaviour
             if(statHandler.currentMP >= 5) {
                 statHandler.currentMP -= 5;
                 int damage = AttackGeneric((int)statHandler.magic, (int)targetStats.defense, (int)targetStats.magic, 0.25f, 0, 0.2f, 12);
+                float temp = damage * targetStats.magicDamageMultiplier;
+                damage = (int)temp;
                 targetStats.currentHP -= damage;
-                Invoke(nameof(EndTurn), 0.05f);
+                Invoke(nameof(EndTurn), 0.5f);
             } else {
                 Debug.Log("Not enough MP!");
-                Invoke(nameof(EndTurn), 0.05f);
+                Invoke(nameof(EndTurn), 0.5f);
             }
         } else { // basic attack
             int damage = AttackBasic((int)statHandler.attack, (int)targetStats.defense);
+            float temp = damage * targetStats.physDamageMultiplier;
+            damage = (int)temp;
             targetStats.currentHP -= damage;
-            Invoke(nameof(EndTurn), 0.05f);
+            Invoke(nameof(EndTurn), 0.5f);
         }
     }
 

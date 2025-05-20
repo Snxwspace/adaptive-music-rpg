@@ -48,7 +48,13 @@ public class BattleHandler : MonoBehaviour
                 // figure out how to have the others take their turns
                 if(query.isPlayerControlled) {
                     PlayerBattleController battleController = currentTurn.GetComponent<PlayerBattleController>();
+                    StatHandler statHandler = currentTurn.GetComponent<StatHandler>();
                     battleController.ToggleBattleMenu();
+                    if(battleController.currentAction == PlayerBattleController.Actions.Guarding) {
+                        // we multiplied the damage to get here, we divide it to get back
+                        statHandler.magicDamageMultiplier /= battleController.guardDamageMult;
+                        statHandler.physDamageMultiplier /= battleController.guardDamageMult;
+                    }
                     battleController.currentAction = PlayerBattleController.Actions.Waiting;
                 } else {
                     currentTurn.SendMessage("TakeBattleTurn");
