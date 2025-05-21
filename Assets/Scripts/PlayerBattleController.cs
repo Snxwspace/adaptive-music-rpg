@@ -8,6 +8,8 @@ public class PlayerBattleController : MonoBehaviour
     public GameObject selectorArrow;
     public SelectorController selectorScript;
     public Actions currentAction;
+    public GameObject skillMenu;
+    public MenuController skillMenuScript;
 
     public float guardDamageMult = 0.4f;
 
@@ -31,6 +33,7 @@ public class PlayerBattleController : MonoBehaviour
     {
         battleMenuScript = battleMenu.GetComponent<BattleMenuController>();
         selectorScript = selectorArrow.GetComponent<SelectorController>();
+        skillMenuScript = skillMenu.GetComponent<MenuController>();
     }
 
     public void ToggleBattleMenu()
@@ -43,16 +46,26 @@ public class PlayerBattleController : MonoBehaviour
         float damage = 10;  // for basic attacks: baseDamage = 10; (i think)
         damage += playerAttack * attackMult;
         damage -= enemyDefense * defenseMult;
+        float rand = Random.Range(0.8f, 1.2f);
+        Debug.Log(rand);
+        damage *= rand;
         return (int)damage;
     }
 
     public int AttackGeneric(int playerAttack, int enemyDefense, int enemyMagic, float attackMult, 
-                             float defenseMult, float magicDefMult, int baseDamage)
+                             float defenseMult, float magicDefMult, int baseDamage, float volatility = 0.2f)
     {
         // playerAttack can be the player's magic stat if the attack is a magic attack
         float damage = baseDamage;
         damage += playerAttack * attackMult;
         damage -= (enemyDefense * defenseMult) + (enemyMagic * magicDefMult);
+        float minRand = 1 - volatility;
+        if (minRand < 0.3f) {
+            minRand = 0.3f;
+        }
+        float rand = Random.Range(minRand, 1 + volatility);
+        Debug.Log(rand);
+        damage *= rand;
         return (int)damage;
     }
 

@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerControllerMain : MonoBehaviour
@@ -112,6 +113,7 @@ public class PlayerControllerMain : MonoBehaviour
                                 break;
                             case 1:
                                 battleFunctions.currentAction = PlayerBattleController.Actions.SkillMenu;
+                                battleFunctions.battleMenu.SetActive(false);
                                 break;
                             case 2:
                                 // loud incorrect buzzer
@@ -146,6 +148,72 @@ public class PlayerControllerMain : MonoBehaviour
                         int damage = battleFunctions.AttackBasic((int)statHandler.attack, (int)enemyStats.defense);
                         float damageF = damage * enemyStats.physDamageMultiplier;
                         enemyStats.currentHP -= (int)damageF;
+                        battleFunctions.currentAction = PlayerBattleController.Actions.Idle;
+                        battleFunctions.selectorArrow.SetActive(false);
+                        battleHandler.isTurnFinished = true;
+                        break;
+                    } else if (Input.GetKeyDown(KeyCode.Escape)) {
+                        battleFunctions.currentAction = PlayerBattleController.Actions.Waiting;
+                        battleFunctions.selectorArrow.SetActive(false);
+                    }
+                    break;
+                case PlayerBattleController.Actions.SkillMenu:
+                    if(!battleFunctions.skillMenu.activeSelf) {
+                        battleFunctions.skillMenu.SetActive(true);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Return)) {
+                        // how do i store the accessed spell (oh wait i dont need to as long as index sticks around)
+                        bool hasMana = false; 
+                        // mana check
+                        switch(battleFunctions.skillMenuScript.index) {
+                            case 0: // fire bolt: 3 MP
+                                if(statHandler.currentMP >= 3) {
+                                    hasMana = true;
+                                }
+                                break;
+                            case 1: // 20 damage: 5 MP
+                                if(statHandler.currentMP >= 5) {
+                                    hasMana = true;
+                                }
+                                break;
+                        }
+                        if(hasMana) {
+                            battleFunctions.currentAction = PlayerBattleController.Actions.SkillTarget;
+                            battleFunctions.skillMenu.SetActive(false);
+                        } else {
+                            Debug.Log("Not enough MP!");
+                        }
+                    } else if (Input.GetKeyDown(KeyCode.Escape)) {
+                        battleFunctions.currentAction = PlayerBattleController.Actions.Waiting;
+                        battleFunctions.skillMenu.SetActive(false);
+                    }
+                    // i dont like how much im hardcoding but i dont have time to figure anything else out tbh
+                    break;
+                case PlayerBattleController.Actions.SkillTarget:
+                    if(!battleFunctions.selectorArrow.activeSelf) {
+                        battleFunctions.selectorArrow.SetActive(true);
+                    }
+                    
+                    if(Input.GetKeyDown(KeyCode.Return)) {
+                        int index = battleFunctions.selectorScript.selectedIndex;
+                        GameObject enemyObject = battleHandler.enemyTeam[index];
+                        StatHandler enemyStats = enemyObject.GetComponent<StatHandler>();
+                        switch (battleFunctions.skillMenuScript.index) {
+                            case 0: // fire bolt
+                                int damage = battleFunctions.AttackGeneric((int)statHandler.magic, (int)enemyStats.defense, (int)enemyStats.magic,
+                                                                           0.25f, 0, 0.25f, 10);
+                                float damageF = damage * enemyStats.magicDamageMultiplier;
+                                enemyStats.currentHP -= (int)damageF;
+                                statHandler.currentMP -= 3;
+                                break;
+                            
+                            case 1: // 20 damage
+                                enemyStats.currentHP -= 20;
+                                statHandler.currentMP -= 5;
+                                break;
+                        }
+                            
                         battleFunctions.currentAction = PlayerBattleController.Actions.Idle;
                         battleFunctions.selectorArrow.SetActive(false);
                         battleHandler.isTurnFinished = true;

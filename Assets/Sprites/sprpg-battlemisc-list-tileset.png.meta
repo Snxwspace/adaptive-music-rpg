@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d19081bb9174f7df0bc536b3cb5ade12
+guid: 0b4e0a13eaab9764c8035b375a208d70
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,11 +43,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 7
-  spritePivot: {x: 0.5, y: 0}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sprpg-battlemisc-enemyselect_0
+      name: sprpg-battlemisc-list-tileset_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 43
-        height: 49
+        y: 434
+        width: 1230
+        height: 217
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,20 +112,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3d19bfe2004b9e84bce82dab7aedb1d
-      internalID: -552759653
+      spriteID: 2a72b6dd6687c8810a2cf9b6eecd85a1
+      internalID: 79445106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sprpg-battlemisc-enemyselect_1
+      name: sprpg-battlemisc-list-tileset_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 0
-        width: 43
-        height: 49
+        x: 1230
+        y: 434
+        width: 1230
+        height: 217
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,8 +134,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9d4ac6f4189502aca986a8417c56767
-      internalID: -55772038
+      spriteID: 94e00030172b1a62584cafb48c2b2d77
+      internalID: 486713717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprpg-battlemisc-list-tileset_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 1230
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3883a472ee8abf5cb5bbf2c95b1d502
+      internalID: -1206607618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprpg-battlemisc-list-tileset_3
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 217
+        width: 1230
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0d97d84967c193c2b8dcdcd36793941
+      internalID: 1212863539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprpg-battlemisc-list-tileset_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1230
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1f4850e6f67fbdabb43a9794618a3f1
+      internalID: 1458792754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprpg-battlemisc-list-tileset_5
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 0
+        width: 1230
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f05383d389cf66b63a4291d2501b3e6e
+      internalID: -286677751
       vertices: []
       indices: 
       edges: []
@@ -144,7 +232,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: c2294a998b5a081ed8e5d799db6031c0
     internalID: 0
     vertices: []
     indices: 
@@ -154,8 +242,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sprpg-battlemisc-enemyselect_0: -552759653
-      sprpg-battlemisc-enemyselect_1: -55772038
+      sprpg-battlemisc-list-tileset_0: 79445106
+      sprpg-battlemisc-list-tileset_1: 486713717
+      sprpg-battlemisc-list-tileset_2: -1206607618
+      sprpg-battlemisc-list-tileset_3: 1212863539
+      sprpg-battlemisc-list-tileset_4: 1458792754
+      sprpg-battlemisc-list-tileset_5: -286677751
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
